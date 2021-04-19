@@ -19,7 +19,7 @@ export default {
     },
     created() {
        axios.post('/graphql', {
-           query: '{projects{id,title,description}}'
+           query: this.$apiQueries.dashboard
        }).then(res => {
            this.projects = res.data.data.projects;
        })

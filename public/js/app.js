@@ -1913,7 +1913,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default().post('/graphql', {
-      query: '{projects{id,title,description}}'
+      query: this.$apiQueries.dashboard
     }).then(function (res) {
       _this.projects = res.data.data.projects;
     });
@@ -1957,7 +1957,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_1___default().post('/graphql', {
-      query: "{\n\t\t\t\tprojects(projectId: ".concat(this.$route.params.id, ")\n\t\t\t\t{\n\t\t\t\t\tid,\n\t\t\t\t\ttitle,\n\t\t\t\t\tdescription\n\t\t\t\t}\n\t\t\t}")
+      query: this.$apiQueries.singleProject,
+      variables: {
+        projectId: parseInt(this.$route.params.id)
+      }
     }).then(function (res) {
       _this.project = res.data.data.projects[0];
     });
@@ -1974,10 +1977,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_App_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/App.vue */ "./resources/js/components/App.vue");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var _queries__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./queries */ "./resources/js/queries.js");
+
 
 
 
@@ -1985,11 +1990,11 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-vue__WEBPACK_IMPORTED_MODULE_2__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_3__.default);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__.default({
+vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_4__.default);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
   routes: _routes__WEBPACK_IMPORTED_MODULE_1__.default
 });
-new vue__WEBPACK_IMPORTED_MODULE_2__.default({
+new vue__WEBPACK_IMPORTED_MODULE_3__.default({
   router: router,
   render: function render(h) {
     return h(_components_App_vue__WEBPACK_IMPORTED_MODULE_0__.default);
@@ -2026,6 +2031,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/queries.js":
+/*!*********************************!*\
+  !*** ./resources/js/queries.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+vue__WEBPACK_IMPORTED_MODULE_0__.default.prototype.$apiQueries = {
+  dashboard: '{projects{id,title,description}}',
+  singleProject: "query fetchSingleProject($projectId: Int){\n\t\t\t\t\tprojects(projectId:$projectId) {\n\t\t\t\t\t\tid,\n\t\t\t\t\t\ttitle,\n\t\t\t\t\t\tdescription\n\t\t\t\t}\n\t\t\t}"
+};
 
 /***/ }),
 
